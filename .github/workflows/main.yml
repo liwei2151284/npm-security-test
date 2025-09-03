@@ -33,10 +33,11 @@ jobs:
 
     - uses: jfrog/setup-jfrog-cli@v4
       env:
-        JF_URL: https://soleng.jfrog.io 
+        JF_URL: https://demo.jfrogchina.com 
       with:
-        oidc-provider-name: weitest-oidc 
-        oidc-audience: jfrog-github-wei
+        oidc-provider-name: wei-test 
+        
+
 
 
     - name: Configure JFrog CLI
