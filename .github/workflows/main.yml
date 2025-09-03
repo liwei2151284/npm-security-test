@@ -12,7 +12,7 @@ on:
 env:
   JF_URL: ${{ secrets.JF_URL }}
   JF_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
-  JFrog_NPM_Repo: "lwei-mvn-virtual"
+  JFrog_NPM_Repo: "lwei-npm-virtual"
   Build_name: "github-npm-build"
   
 jobs:
