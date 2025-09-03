@@ -30,9 +30,11 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
 
-    - name: Install and configure JFrog CLI
+    - name: Setup JFrog CLI
+      uses: jfrog/setup-jfrog-cli@v4
+
+    - name: Configure JFrog CLI
       run: |
-        npm install -g jfrog-cli-v2-jf
         echo $JF_TOKEN | jf c add demo --interactive=false --url=$JF_URL --access-token-stdin
         jf config use demo
 
