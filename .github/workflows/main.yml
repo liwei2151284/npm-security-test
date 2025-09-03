@@ -10,8 +10,8 @@ on:
     - cron: '42 11 * * 1'
 
 env:
-  JF_URL: ${{ vars.JF_URL }}
-  JF_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+  #JF_URL: ${{ vars.JF_URL }}
+  #JF_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
   JFrog_NPM_Repo: "lwei-npm-virtual"
   Build_name: "github-npm-build"
   
@@ -30,8 +30,13 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
 
-    - name: Setup JFrog CLI
-      uses: jfrog/setup-jfrog-cli@v4
+    - uses: jfrog/setup-jfrog-cli@v4
+      env:
+        JF_URL: https://soleng.jfrog.io 
+      with:
+        oidc-provider-name: weitest-oidc 
+        oidc-audience: jfrog-github-wei
+
 
     - name: Configure JFrog CLI
       run: |
