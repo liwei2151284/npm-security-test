@@ -8,7 +8,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '42 11 * * 1'
-
+permissions:
+  id-token: write
 env:
   #JF_URL: ${{ vars.JF_URL }}
   #JF_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
