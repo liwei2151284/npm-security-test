@@ -1,0 +1,52 @@
+name: "Supinfo Build Scan"
+
+on:
+  push:
+    branches: [ "main" ]
+  #pull_request:
+    #branches: [ "main" ]
+  workflow_dispatch:
+  schedule:
+    - cron: '42 11 * * 1'
+
+env:
+  JF_URL: ${{ secrets.JF_URL }}
+  JF_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+  JFrog_NPM_Repo: "lwei-mvn-virtual"
+  Build_name: "github-npm-build"
+  
+jobs:
+  security-java-demo:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+
+    - name: Install and configure JFrog CLI
+      run: |
+        npm install -g jfrog-cli-v2-jf
+        echo $JF_TOKEN | jf c add demo --interactive=false --url=$JF_URL --access-token-stdin
+        jf config use demo
+
+    - name: Build NPM Project
+      run: |
+        jf rt ping
+        jf  npmc --repo-deploy=$JFrog_NPM_Repo --repo-resolve=$JFrog_NPM_Repo 
+        jf  npm  install --build-name=$Build_name  --build-number=$GITHUB_RUN_NUMBER
+        jf npm publish --build-name=$Build_name  --build-number=$GITHUB_RUN_NUMBER
+       
+    - name: Publish Build-Info to JFrog Repo
+      run: |
+        jf rt bce $Build_name $GITHUB_RUN_NUMBER 
+        jf rt bag $Build_name $GITHUB_RUN_NUMBER 
+        jf rt bp $Build_name $GITHUB_RUN_NUMBER 
+
+  
