@@ -20,10 +20,6 @@ jobs:
   security-java-demo:
     name: Build
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -42,10 +38,10 @@ jobs:
 
 
 
-    - name: Configure JFrog CLI
-      run: |
-        echo $JF_TOKEN | jf c add demo --interactive=false --url=$JF_URL --access-token-stdin
-        jf config use demo
+    #- name: Configure JFrog CLI
+    #  run: |
+    #    echo $JF_TOKEN | jf c add demo --interactive=false --url=$JF_URL --access-token-stdin
+    #    jf config use demo
 
     - name: Build NPM Project
       run: |
