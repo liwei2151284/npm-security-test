@@ -36,6 +36,8 @@ jobs:
         JF_URL: https://demo.jfrogchina.com 
       with:
         oidc-provider-name: wei-test 
+        oidc-audience: github-jfrog
+
         
 
 
