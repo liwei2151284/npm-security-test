@@ -26,3 +26,4 @@ jf npm install --build-name=npm-build --build-number=1
 
 # Publish the build info to Artifactory
  jf rt bp npm-build 1   
+d
